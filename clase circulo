@@ -36,4 +36,5 @@ int main()
         cin >> radio;
         circulito.set_radio(radio);
         cout << "El area es: " << circulito.calcularareacirculo() << endl;
+	return 0;
 }
