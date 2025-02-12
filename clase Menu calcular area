@@ -51,6 +51,7 @@ int main()
             default: break;
         }
     } while (opcion != 0);
+return 0;
 }
 CIRCULO.H
 #pragma once
