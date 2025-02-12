@@ -1,0 +1,81 @@
+CIRCULO.H
+#pragma once
+class circulo
+{
+	private:
+		float radio;
+	public: 
+		circulo();
+		float get_radio();
+		void set_radio(float radio1);
+		double calcularareacirculo();
+};
+CIRCULO.CPP
+#include "circulo.h"
+circulo::circulo() {
+
+}
+float circulo::get_radio() {
+	return radio;
+}
+void circulo::set_radio(float radio1) {
+	radio = radio1;
+}
+double circulo::calcularareacirculo() {
+	return (radio * radio * 3.141516);
+}
+CLASE CIRCULO.CPP
+#include <iostream>
+#include "circulo.h"
+#include "rectangulo.h"
+#include "trapecio.h"
+using namespace std;
+int main()
+{
+    circulo circulito;
+    rectangulo rectangulito;
+    trapecio trape;
+    float radio,base,altura,B,b,h;
+    int opcion;
+    do {
+        cout << "Menu calcular area" << endl;
+        cout << "1. Area circulo" << endl;
+        cout << "2. Area rectangulo" << endl;
+        cout << "3. Area trapecio" << endl;
+        cout << "0. Salir" << endl;
+        cout << "Ingrese una opcion: ";
+        cin >> opcion;
+        switch (opcion) {
+            case 1: 
+                cout << "Ingrese el radio del circulo: " << endl;
+                cin >> radio;
+                circulito.set_radio(radio);
+                cout << "El area es: " << circulito.calcularareacirculo() << endl;
+                break;
+            case 2: 
+                cout << "Ingrese la base del rectangulo: ";
+                cin >> base;
+                rectangulito.set_base(base);
+                cout << "Ingrese la altura del rectangulo: ";
+                cin >> altura;
+                rectangulito.set_altura(altura);
+                cout << "El area es: " << rectangulito.calculararearectangulo()<<endl;
+                break;
+            case 3: 
+                cout << "Ingrese La base mayor del trapecio (B): ";
+                cin >> B;
+                trape.set_B(B); 
+                cout << "Ingrese la base menor del trapecio (b): ";
+                cin >> b;
+                trape.set_b(b);
+                cout << "Ingrese la altura del trapecio: ";
+                cin >> h;
+                trape.set_h(h);
+                cout << "El area es: " << trape.calcularareatrapecio() << endl;
+                break;
+            case 0: break;
+            default: break;
+        }
+    } while (opcion != 0);
+    
+}
