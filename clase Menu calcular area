@@ -1,0 +1,160 @@
+MENU.CPP
+#include <iostream>
+#include "circulo.h"
+#include "rectangulo.h"
+#include "trapecio.h"
+using namespace std;
+int main()
+{
+    circulo circulito;
+    rectangulo rectangulito;
+    trapecio trape;
+    float radio,base,altura,B,b,h;
+    int opcion;
+    do {
+        cout << "Menu calcular area" << endl;
+        cout << "1. Area circulo" << endl;
+        cout << "2. Area rectangulo" << endl;
+        cout << "3. Area trapecio" << endl;
+        cout << "0. Salir" << endl;
+        cout << "Ingrese una opcion: ";
+        cin >> opcion;
+        switch (opcion) {
+            case 1: 
+                cout << "Ingrese el radio del circulo: " << endl;
+                cin >> radio;
+                circulito.set_radio(radio);
+                cout << "El area es: " << circulito.calcularareacirculo() << endl;
+                break;
+            case 2: 
+                cout << "Ingrese la base del rectangulo: ";
+                cin >> base;
+                rectangulito.set_base(base);
+                cout << "Ingrese la altura del rectangulo: ";
+                cin >> altura;
+                rectangulito.set_altura(altura);
+                cout << "El area es: " << rectangulito.calculararearectangulo()<<endl;
+                break;
+            case 3: 
+                cout << "Ingrese La base mayor del trapecio (B): ";
+                cin >> B;
+                trape.set_B(B); 
+                cout << "Ingrese la base menor del trapecio (b): ";
+                cin >> b;
+                trape.set_b(b);
+                cout << "Ingrese la altura del trapecio: ";
+                cin >> h;
+                trape.set_h(h);
+                cout << "El area es: " << trape.calcularareatrapecio() << endl;
+                break;
+            case 0: break;
+            default: break;
+        }
+    } while (opcion != 0);
+}
+CIRCULO.H
+#pragma once
+class circulo
+{
+	private:
+		float radio;
+	public: 
+		circulo();
+		float get_radio();
+		void set_radio(float radio1);
+		double calcularareacirculo();
+};
+CIRCULO.CPP
+#include "circulo.h"
+circulo::circulo() {
+
+}
+float circulo::get_radio() {
+	return radio;
+}
+void circulo::set_radio(float radio1) {
+	radio = radio1;
+}
+double circulo::calcularareacirculo() {
+	return (radio * radio * 3.141516);
+}
+RECTANGULO.H
+#pragma once
+class rectangulo
+{
+private:
+	float base;
+	float altura;
+public:
+	rectangulo();
+	float get_base();
+	void set_base(float base1);
+	float get_altura();
+	void set_altura(float altura1);
+	double calculararearectangulo();
+};
+RECTANGULO.CPP
+#include "rectangulo.h"
+rectangulo::rectangulo() {
+
+}
+float rectangulo::get_base() {
+	return base;
+}
+void rectangulo::set_base(float base1) {
+	base = base1;
+}
+float rectangulo::get_altura() {
+	return altura;
+}
+void rectangulo::set_altura(float altura1) {
+	altura = altura1;
+}
+double rectangulo::calculararearectangulo() {
+	return (base * altura);
+}
+TRAPECIO.H
+#pragma once
+class trapecio
+{
+private:
+	float B;
+	float b;
+	float h;
+public:
+	trapecio();
+	float get_B();
+	void set_B(float B1);
+	float get_b();
+	void set_b(float b1);
+	float get_h();
+	void set_h(float h1);
+	double calcularareatrapecio();
+};
+
+TRAPECIO.CPP
+#include "trapecio.h"
+trapecio::trapecio() {
+
+}
+float trapecio::get_B() {
+	return B;
+}
+void trapecio::set_B(float B1) {
+	B = B1;
+}
+float trapecio::get_b() {
+	return b;
+}
+void trapecio::set_b(float b1) {
+	b = b1;
+}
+float trapecio::get_h() {
+	return h;
+}
+void trapecio::set_h(float h1) {
+	h = h1;
+}
+double trapecio::calcularareatrapecio() {
+	return (((B + b) / 2) * h);
+}
