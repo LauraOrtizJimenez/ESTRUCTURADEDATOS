@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+int factorial(int n); //prototipo
+
+int main()
+{
+    int fact,n;
+    cout << "Ingrese el valor de n: ";
+    cin >> n;
+    fact = factorial(n);  //llamar a la funcion 
+    cout << "El factorial es: " << fact;
+    return 0;
+}
+int factorial(int n) { //Decaracion de la funcion
+    if (n == 0)
+        return 1;
+    else
+        return ((n - 1) * n);
+}
