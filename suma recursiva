@@ -1,0 +1,20 @@
+#include <iostream>
+using namespace std;
+int sumarecursiva(int n); 
+
+int main()
+{
+    int n;
+    do {
+        cout << "Ingrese el valor de n: ";
+        cin >> n;
+    } while (n < 0);
+    cout << "la suma recursiva es: "<<sumarecursiva(n);
+    return 0;
+}
+int sumarecursiva(int n) { 
+    if (n == 1)
+        return 1;  //condicion base
+    else
+        return (sumarecursiva(n - 1) + n); //condicion 
+}
