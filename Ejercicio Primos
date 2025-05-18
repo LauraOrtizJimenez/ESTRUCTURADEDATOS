@@ -1,0 +1,45 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
+bool esPrimo(int numero);
+vector<int> generarPrimos(int N);
+
+int main() {
+    int N;
+    cout << "Ingrese la cantidad de numeros primos que desea generar: ";
+    cin >> N;
+
+    vector<int> primos = generarPrimos(N);
+
+    cout << "Numero\tCuadrado\tCubo\n";
+    for (int numero : primos) {
+        cout << numero << "\t" << pow(numero, 2) << "\t\t" << pow(numero, 3) << endl;
+    }
+
+    return 0;
+}
+
+bool esPrimo(int numero) {
+    if (numero < 2) return false;
+    for (int i = 2; i * i <= numero; ++i) {
+        if (numero % i == 0) return false;
+    }
+    return true;
+}
+
+vector<int> generarPrimos(int N) {
+    vector<int> primos;
+    int numero = 2;
+
+    while (primos.size() < N) {
+        if (esPrimo(numero)) {
+            primos.push_back(numero);
+        }
+        ++numero;
+    }
+
+    return primos;
+}
