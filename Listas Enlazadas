@@ -1,0 +1,198 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Node {
+public:
+    string nombre;
+    int nota;
+    int semestre;
+    string carrera;
+    Node* next;
+};
+
+class LinkedList {
+private:
+    Node* first;
+    Node* last;
+
+public:
+    LinkedList() {
+        first = nullptr;
+        last = nullptr;
+    }
+
+    void agregarEstudiante(string nombre, int nota, int semestre, string carrera);
+    void mostrar();
+    int contarAprobados();
+    int contarReprobados();
+    int notaMayor();
+    int notaMenor();
+    bool eliminarEstudiantePorNombre(string nombre);
+};
+
+void LinkedList::agregarEstudiante(string nombre, int nota, int semestre, string carrera) {
+    Node* nuevo = new Node();
+    nuevo->nombre = nombre;
+    nuevo->nota = nota;
+    nuevo->semestre = semestre;
+    nuevo->carrera = carrera;
+    nuevo->next = nullptr;
+
+    if (first == nullptr) {
+        first = last = nuevo;
+    }
+    else {
+        last->next = nuevo;
+        last = nuevo;
+    }
+}
+
+void LinkedList::mostrar() {
+    Node* p = first;
+    while (p) {
+        cout << "Nombre: " << p->nombre
+            << ", Nota: " << p->nota
+            << ", Semestre: " << p->semestre
+            << ", Carrera: " << p->carrera << endl;
+        p = p->next;
+    }
+}
+
+int LinkedList::contarAprobados() {
+    Node* p = first;
+    int count = 0;
+    while (p) {
+        if (p->nota > 50)
+            count++;
+        p = p->next;
+    }
+    return count;
+}
+
+int LinkedList::contarReprobados() {
+    Node* p = first;
+    int count = 0;
+    while (p) {
+        if (p->nota <= 50)
+            count++;
+        p = p->next;
+    }
+    return count;
+}
+
+int LinkedList::notaMayor() {
+    if (!first) return -1;
+    Node* p = first;
+    int maxNota = p->nota;
+    while (p) {
+        if (p->nota > maxNota)
+            maxNota = p->nota;
+        p = p->next;
+    }
+    return maxNota;
+}
+
+int LinkedList::notaMenor() {
+    if (!first) return -1;
+    Node* p = first;
+    int minNota = p->nota;
+    while (p) {
+        if (p->nota < minNota)
+            minNota = p->nota;
+        p = p->next;
+    }
+    return minNota;
+}
+
+bool LinkedList::eliminarEstudiantePorNombre(string nombre) {
+    Node* p = first;
+    Node* prev = nullptr;
+
+    while (p) {
+        if (p->nombre == nombre) {
+            if (p == first) {
+                first = first->next;
+                if (p == last) last = nullptr;
+            }
+            else {
+                prev->next = p->next;
+                if (p == last) last = prev;
+            }
+            delete p;
+            return true;
+        }
+        prev = p;
+        p = p->next;
+    }
+    return false;
+}
+
+int main() {
+    LinkedList lista;
+    int opcion;
+
+    do {
+        cout << "\n----- MENU -----\n";
+        cout << "1. Agregar estudiante\n";
+        cout << "2. Mostrar estudiantes\n";
+        cout << "3. Eliminar estudiante por nombre\n";
+        cout << "4. Mostrar estadísticas\n";
+        cout << "5. Salir\n";
+        cout << "Seleccione una opción: ";
+        cin >> opcion;
+
+        if (opcion == 1) {
+            string nombre, carrera;
+            int nota, semestre;
+
+            cin.ignore(); // <- Aquí limpiamos el buffer antes de getline
+            cout << "Nombre: ";
+            getline(cin, nombre);
+            cout << "Nota: ";
+            cin >> nota;
+            cout << "Semestre: ";
+            cin >> semestre;
+            cin.ignore(); // <- Otra vez antes del próximo getline
+            cout << "Carrera: ";
+            getline(cin, carrera);
+
+            lista.agregarEstudiante(nombre, nota, semestre, carrera);
+            cout << "Estudiante agregado.\n";
+
+        }
+        else if (opcion == 2) {
+            lista.mostrar();
+
+        }
+        else if (opcion == 3) {
+            string nombre;
+            cin.ignore(); // <- Este es el más importante para evitar que nombre quede vacío
+            cout << "Ingrese el nombre del estudiante a eliminar: ";
+            getline(cin, nombre);
+            if (lista.eliminarEstudiantePorNombre(nombre)) {
+                cout << "Estudiante eliminado.\n";
+            }
+            else {
+                cout << "Estudiante no encontrado.\n";
+            }
+
+        }
+        else if (opcion == 4) {
+            cout << "Aprobados: " << lista.contarAprobados() << endl;
+            cout << "Reprobados: " << lista.contarReprobados() << endl;
+            cout << "Nota más alta: " << lista.notaMayor() << endl;
+            cout << "Nota más baja: " << lista.notaMenor() << endl;
+
+        }
+        else if (opcion == 5) {
+            cout << "Saliendo...\n";
+        }
+        else {
+            cout << "Opción inválida.\n";
+        }
+
+    } while (opcion != 5);
+
+    return 0;
+}
